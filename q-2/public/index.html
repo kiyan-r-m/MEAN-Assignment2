@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h3>Login</h3>
+        <form>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+            <button type="submit" class="btnLogin btn btn-primary">Login</button>
+        </form>
+    </div>
+</body>
+<script src="js/bootstrap.bundle.js"></script>
+<script>
+    const email = document.querySelector("#email");
+    const password = document.querySelector("#password");
+    const btn = document.querySelector(".btnLogin");
+    btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        if (!email || !password) {
+            alert("Fileds are empty");
+        }
+        else {
+            try {
+                const response = await fetch("/dash", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify({ email: email.value, password: password.value })
+                });
+                location.replace("./dash.html");
+            }
+            catch (ex) {
+                console.log(ex);
+            }
+        }
+    })
+</script>
+
+</html>

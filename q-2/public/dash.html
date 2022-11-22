@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="mt-4">Welcome <span class="response"></span></h2>
+        <button class="btnLogout btn btn-primary">Logout</button>
+    </div>
+</body>
+<script src="js/bootstrap.bundle.js"></script>
+<script>
+    async function getUser() {
+        try {
+            const response = await fetch("/verify");
+            const { data } = await response.json();
+            document.querySelector(".response").innerText = data.email;
+        }
+        catch (ex) {
+            console.log(ex)
+        }
+    }
+    getUser();
+    document.querySelector(".btnLogout").addEventListener("click", async () => {
+        try {
+            const response = await fetch('/logout');
+            const { data } = await response.json();
+            location.replace("./logout.html");
+        }
+        catch (ex) {
+            console.log(ex)
+        }
+    })
+</script>
+
+</html>
